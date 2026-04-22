@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Convert a structured request into a Slack Block Kit message with interactive Approve/Reject buttons for approval workflows.
 
+## Responsibilities
+- Generate Slack Block Kit approval messages with request details
+- Add interactive approve/reject buttons with unique tracking IDs
+- Apply priority-based visual styling with appropriate colors and emojis
+- Include cost estimates and security assessments in message blocks
+- Format webhook-ready JSON for Slack channel posting
+
 ## Input
 The input will usually be JSON from an intake skill, for example:
 

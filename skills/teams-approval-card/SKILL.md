@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Convert a structured request into a Microsoft Teams Adaptive Card with interactive Approve/Reject buttons for approval workflows.
 
+## Responsibilities
+- Generate Teams Adaptive Card JSON with approval request details
+- Add Action.Submit approve/reject buttons with positive/destructive styling
+- Format priority-based visual elements and fact sets
+- Include cost estimates and security risk assessments in card layout
+- Create webhook-ready Adaptive Card payloads for Teams posting
+
 ## Input
 The input will usually be JSON from an intake skill, for example:
 
@@ -264,26 +271,24 @@ Return JSON only in this adaptive card format:
         ],
         "actions": [
           {
-            "type": "Action.Http",
+            "type": "Action.Submit",
             "title": "✅ Approve",
             "style": "positive",
-            "url": "${approval_webhook_url}",
-            "method": "POST",
-            "headers": {
-              "Content-Type": "application/json"
-            },
-            "body": "{ \"approval_id\": \"${approval_id}\", \"ticket_id\": \"${ticket_id}\", \"action\": \"approve\", \"approver\": \"{{user.userPrincipalName}}\" }"
+            "data": {
+              "approval_id": "${approval_id}",
+              "ticket_id": "${ticket_id}",
+              "action": "approve"
+            }
           },
           {
-            "type": "Action.Http", 
+            "type": "Action.Submit", 
             "title": "❌ Reject",
             "style": "destructive",
-            "url": "${approval_webhook_url}",
-            "method": "POST", 
-            "headers": {
-              "Content-Type": "application/json"
-            },
-            "body": "{ \"approval_id\": \"${approval_id}\", \"ticket_id\": \"${ticket_id}\", \"action\": \"reject\", \"approver\": \"{{user.userPrincipalName}}\" }"
+            "data": {
+              "approval_id": "${approval_id}",
+              "ticket_id": "${ticket_id}",
+              "action": "reject"
+            }
           }
         ]
       }

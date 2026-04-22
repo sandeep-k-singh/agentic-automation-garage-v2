@@ -9,6 +9,13 @@ version: 2.0.0
 ## Purpose
 Orchestrate the complete approval workflow: generate approval card + send via email to Outlook shared mailbox in one skill.
 
+## Responsibilities
+- Execute complete Teams approval workflow coordination
+- Generate Teams Adaptive Cards using teams-approval-card skill
+- Send approval emails to Outlook shared mailboxes
+- Handle Teams webhook and email integration
+- Coordinate approval responses and workflow completion
+
 ## Input
 The input should be the structured request data plus email configuration:
 
@@ -161,8 +168,9 @@ if (workflowResult.workflow_status === "success") {
 
 ## Environment Dependencies
 - SMTP configuration for Bauer Media Outdoor email system
-- Approval callback endpoints for button actions  
+- Approval callback endpoints for Action.Submit button responses  
 - Access to teams-approval-card and email-approval-card skills
+- Support for Teams Adaptive Card Action.Submit interactions
 
 **Example Configuration:**
 ```bash

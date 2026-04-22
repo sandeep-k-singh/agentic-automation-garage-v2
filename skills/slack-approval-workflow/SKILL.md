@@ -9,6 +9,13 @@ version: 2.0.0
 ## Purpose
 Orchestrate the complete Slack approval workflow: generate approval card + post to Slack channel in one skill.
 
+## Responsibilities
+- Execute complete Slack approval workflow from start to finish
+- Generate approval cards using slack-approval-card skill integration
+- Post messages to designated Slack channels via slack-post-card skill
+- Manage webhook URLs and channel configuration
+- Coordinate approval workflow completion and response handling
+
 ## Input
 The input should be the structured request data plus Slack configuration:
 

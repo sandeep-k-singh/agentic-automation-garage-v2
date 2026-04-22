@@ -9,12 +9,19 @@ version: 1.0.0
 ## Purpose
 Post a Slack Block Kit message to a specific channel using incoming webhook or bot token functionality.
 
+## Responsibilities
+- Accept Block Kit message JSON and channel configuration
+- Post messages to Slack channels via webhook or bot token
+- Handle webhook authentication and channel targeting
+- Validate Block Kit message format before posting
+- Return success/failure status with message timestamps
+
 ## Input
 The input should be JSON containing the Block Kit message and channel information:
 
 ```json
 {
-  \"webhook_url\": \"https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK\",
+  "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
   "bot_token": "xoxb-xxxxxxxxx-xxxxxxxxx-xxxxxxxxxxxx",
   "method": "webhook",
   "block_kit_message": {

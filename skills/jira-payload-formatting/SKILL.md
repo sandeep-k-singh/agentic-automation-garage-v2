@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Convert a structured work request into a Jira-ready create-issue payload with a rich-text description in Atlassian Document Format (ADF).
 
+## Responsibilities
+- Transform structured requests into JIRA-compatible JSON payloads
+- Generate Atlassian Document Format (ADF) descriptions with tables
+- Map priority levels and labels to JIRA field requirements
+- Include cost and security estimates in custom fields and description tables
+- Validate all mandatory JIRA fields are properly formatted
+
 ## Input
 The input will usually be JSON from an intake skill, for example:
 

@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Convert a Teams approval card into an HTML email format and send it to an Outlook shared mailbox for approval workflows.
 
+## Responsibilities
+- Convert Teams Adaptive Card data to HTML email format
+- Generate professional email templates for approval requests
+- Send emails to designated approval mailboxes
+- Include all relevant ticket details and context in emails
+- Provide clear approve/reject options via email responses
+
 ## Input
 The input should be JSON containing the approval card data and email configuration:
 

@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Post a Microsoft Teams Adaptive Card to a specific channel using incoming webhook functionality.
 
+## Responsibilities
+- Post Adaptive Card JSON payloads to Teams channels via incoming webhooks
+- Handle Teams webhook URL configuration and authentication
+- Validate Adaptive Card structure before posting
+- Return success/failure status with posting confirmation
+- Manage Teams API integration and error handling
+
 ## Input
 The input should be JSON containing the adaptive card and channel information:
 
@@ -84,9 +91,10 @@ Failure response:
 ## Integration Notes
 - Works with Teams incoming webhooks (easiest setup)
 - Requires webhook URL configuration per channel
-- Supports standard Teams adaptive card format
-- Can be chained after teams-approval-card skill
+- Supports standard Teams adaptive card format with Action.Submit buttons
+- Can be chained after teams-approval-card skill  
 - Handles webhook authentication automatically via URL
+- Compatible with Action.Submit interactive elements for user responses
 
 ## Usage Example
 ```javascript

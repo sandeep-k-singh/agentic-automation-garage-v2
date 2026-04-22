@@ -9,6 +9,13 @@ version: 1.0.0
 ## Purpose
 Convert a structured service request into a Halo ITSM-ready create-ticket payload for access requests, support requests, and operational tasks.
 
+## Responsibilities
+- Transform structured requests into Halo ITSM-compatible payloads
+- Map service request fields to Halo ticket structure
+- Apply appropriate Halo categories, priorities, and assignment rules
+- Generate payloads ready for Halo API submission
+- Handle access requests, support tickets, and operational task formatting
+
 ## Input
 The input will usually be JSON from an intake skill, for example:
 
