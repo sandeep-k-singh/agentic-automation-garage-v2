@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "agentic-automation-garage-v2": {
+      "command": "python",
+      "args": ["-m", "teams_mcp_server"],
+      "cwd": "/Users/ukcci1ssi/CCI/Hackathon/agentic-automation-garage-v2/mcp-server",
+      "env": {
+        "TEAMS_WEBHOOK_URL": "https://your-organization.webhook.office.com/webhookb2/your-webhook-id",
+        "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+        "APPROVAL_EMAIL": "sandeep.singh@bauermediaoutdoor.com",
+        "JIRA_BASE_URL": "https://cci-clearchannel.atlassian.net/browse"
+      }
+    }
+  },
+  "globalShortcut": "Ctrl+Shift+M"
+}

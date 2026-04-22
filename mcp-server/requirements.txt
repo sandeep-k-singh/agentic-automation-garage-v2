@@ -1,0 +1,16 @@
+# Teams MCP Server - Python Dependencies
+# Production dependencies for the Python MCP server
+
+# HTTP client for Teams webhook requests
+httpx>=0.25.0
+
+# Data validation and parsing
+pydantic>=2.0.0
+
+# Environment variable management  
+python-dotenv>=1.0.0
+
+# Note: MCP SDK dependency may vary by release
+# For now, core functionality works without full MCP SDK
+# Uncomment when MCP SDK is available:
+# model-context-protocol>=1.0.0

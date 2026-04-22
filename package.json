@@ -1,0 +1,78 @@
+{
+  "name": "agentic-automation-garage-v2",
+  "version": "2.0.0",
+  "description": "Multi-agentic automation platform for enterprise workflow management with Claude.ai integration",
+  "main": "mcp-server/teams_mcp_server.py",
+  "scripts": {
+    "start": "cd mcp-server && python teams_mcp_server.py",
+    "test": "cd mcp-server && python -m pytest tests/",
+    "install-deps": "cd mcp-server && pip install -r requirements.txt",
+    "setup": "cd mcp-server && cp .env.example .env",
+    "test-teams": "cd mcp-server && python -c 'import test_teams_integration; test_teams_integration.main()'",
+    "test-slack": "node test-slack-integration.js",
+    "validate-skills": "python scripts/validate-skills.py",
+    "deploy-check": "python scripts/deployment-check.py"
+  },
+  "keywords": [
+    "automation",
+    "workflow",
+    "claude-ai",
+    "mcp-server",
+    "teams",
+    "slack",
+    "jira",
+    "enterprise",
+    "approval-workflow"
+  ],
+  "author": "Agentic Automation Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agentic-automation-garage-v2"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/agentic-automation-garage-v2/issues"
+  },
+  "homepage": "https://github.com/your-org/agentic-automation-garage-v2#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.11.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "python-dependencies": {
+    "httpx": ">=0.25.0",
+    "pydantic": ">=2.0.0",
+    "python-dotenv": ">=1.0.0",
+    "mcp": ">=1.0.0"
+  },
+  "mcp-server": {
+    "name": "agentic-automation-garage-v2",
+    "version": "2.0.0",
+    "description": "Enterprise workflow automation with Teams, Slack, and JIRA integration",
+    "tools": [
+      "teams_post_approval_card",
+      "teams_build_card_payload", 
+      "teams_send_approval_email"
+    ],
+    "capabilities": [
+      "adaptive-cards",
+      "webhook-integration",
+      "cost-estimation",
+      "security-assessment",
+      "approval-workflows"
+    ]
+  },
+  "skills": [
+    "ticket-intake-router",
+    "jira-payload-formatting",
+    "halo-payload-formatting",
+    "slack-approval-card",
+    "slack-approval-workflow",
+    "slack-post-card",
+    "teams-approval-card",
+    "teams-approval-workflow",
+    "teams-post-card",
+    "email-approval-card"
+  ]
+}

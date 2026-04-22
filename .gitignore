@@ -1,0 +1,105 @@
+# Agentic Automation Garage v2 - .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env.local
+.env.*.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Environment files (keep .env.example)
+.env
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MCP server runtime
+*.sock
+
+# Temporary files
+temp/
+tmp/
+
+# Archive files (unless specifically needed)
+*.tar.gz
+*.zip
+*.tar
+*.rar
+
+# Claude.ai specific
+claude_desktop_config.json.backup
