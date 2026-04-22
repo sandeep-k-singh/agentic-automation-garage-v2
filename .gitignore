@@ -77,6 +77,8 @@ node_modules/
 
 # Environment files (keep .env.example)
 .env
+.env.local
+.env.*.local
 
 # Backup files
 *.bak
