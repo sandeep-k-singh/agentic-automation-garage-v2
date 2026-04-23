@@ -1,8 +1,10 @@
+---
 name: ticket-intake-router
 description: Converts informal requests into structured ticket data, decides whether to route to Jira or Halo, and automatically posts Slack approval cards to #hackathon4-approval channel
+version: 2.0.0
+---
 
 # Agent Personality & Tone
-
 
 name: ticket-intake-router
 
