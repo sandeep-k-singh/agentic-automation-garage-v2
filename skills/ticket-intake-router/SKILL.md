@@ -9,6 +9,7 @@ version: 2.0.0
 ## 🛑 CRITICAL: ALWAYS CHECK FOR CLARIFICATION FIRST
 
 **BEFORE processing ANY request - evaluate if clarification is needed:**
+
 - If request is vague, incomplete, or unclear → Ask ONE clarifying question and STOP
 - If request has sufficient detail → Proceed with ticket generation
 - NEVER generate partial tickets or make assumptions
@@ -16,6 +17,7 @@ version: 2.0.0
 ---
 
 ## Purpose
+
 Convert informal requests (Slack, email, voice) into structured ticket data and automatically post Slack approval cards to #hackathon4-approval channel for workflow management.
 
 ---
@@ -47,6 +49,7 @@ Convert informal requests (Slack, email, voice) into structured ticket data and 
 ### BEFORE DOING ANYTHING ELSE - EVALUATE IF CLARIFICATION IS NEEDED:
 
 **🛑 STOP and ask for clarification if the request is missing:**
+
 - **WHAT**: Unclear what they want (vague requests like "set up Azure stuff")
 - **WHERE**: No environment specified (dev/staging/prod unclear)
 - **WHO**: Requestor identity unclear for approval tracking
@@ -60,11 +63,13 @@ Convert informal requests (Slack, email, voice) into structured ticket data and 
 ### 📋 REQUEST COMPLETENESS GUIDE
 
 **✅ SUFFICIENT DETAIL (proceed with ticket):**
+
 - "Create an Azure storage account in the development environment for the mobile app project"
 - "Grant read-only access to the production SQL database for user john.doe@company.com"
 - "Deploy version 2.1.3 of the customer portal to the staging environment"
 
 **🛑 NEEDS CLARIFICATION (ask question):**
+
 - "Set up Azure stuff" → Ask: "What specific Azure services do you need?"
 - "I need access" → Ask: "What system do you need access to and what permissions?"
 - "Deploy the app" → Ask: "Which application and to which environment?"
@@ -78,23 +83,27 @@ Convert informal requests (Slack, email, voice) into structured ticket data and 
 ### BEFORE GENERATING NEW TICKET - CHECK FOR EXISTING SIMILAR TICKETS:
 
 **🔍 Search JIRA for similar tickets using:**
+
 - **Keywords**: Extract key terms from the request (Azure, database, deployment, etc.)
 - **System/Service**: Same target system or service
 - **Environment**: Same environment (dev/staging/prod)
 - **Recent timeframe**: Check tickets created in last 30-90 days
 
 **📋 DUPLICATE DETECTION CRITERIA:**
+
 - **Same service/system requested** (e.g., both ask for Azure storage account)
 - **Same environment target** (e.g., both target production environment)
 - **Similar scope/functionality** (e.g., both request database access)
 - **Same requestor** with recent similar request
 
 **✅ IF NO SIMILAR TICKETS FOUND**: Proceed with new ticket generation
-**🛑 IF SIMILAR TICKETS FOUND**: 
-  - **ACTIVE tickets**: Ask "There's an existing ticket [TICKET-ID] for similar request. Should this be added to that ticket or is this different?"
-  - **RECENT completed tickets**: Ask "A similar request [TICKET-ID] was recently completed. Is this a new requirement or follow-up work?"
+**🛑 IF SIMILAR TICKETS FOUND**:
+
+- **ACTIVE tickets**: Ask "There's an existing ticket [TICKET-ID] for similar request. Should this be added to that ticket or is this different?"
+- **RECENT completed tickets**: Ask "A similar request [TICKET-ID] was recently completed. Is this a new requirement or follow-up work?"
 
 ### 🔍 SEARCH EXAMPLES:
+
 **Request**: "Create Azure storage account for mobile app"
 **Search for**: "Azure storage", "storage account", "mobile app" (last 60 days)
 
@@ -105,7 +114,9 @@ Convert informal requests (Slack, email, voice) into structured ticket data and 
 **Search for**: "deploy", "production", app name (last 90 days)
 
 ### 🔧 JIRA INTEGRATION REQUIREMENTS
+
 For duplicate checking to work effectively:
+
 - **JIRA API Access**: System must have read access to JIRA to search existing tickets
 - **Search Fields**: Search in title, summary, description, and labels
 - **Time Range**: Default to last 30-90 days based on request type
@@ -113,6 +124,7 @@ For duplicate checking to work effectively:
 - **Project Scope**: Search within relevant JIRA projects (infrastructure, platform, etc.)
 
 ### 🎯 DUPLICATE RESOLUTION OUTCOMES
+
 - **User confirms different**: Proceed with new ticket creation
 - **User confirms same/related**: Reference existing ticket ID and suggest adding comments there
 - **User unsure**: Escalate to team lead for ticket consolidation decision
@@ -122,17 +134,20 @@ For duplicate checking to work effectively:
 ## Workflow Steps
 
 ### **1. Request Analysis & Structuring (ONLY if no clarification needed AND no duplicates found)**
+
 - Convert informal request into structured ticket data
 - Apply routing rules (Jira vs Halo)
 - Generate all required fields (title, user story, acceptance criteria, etc.)
 - Validate priority and labels
 
 ### **2. Cost & Security Assessment (ONLY if no clarification needed AND no duplicates found)**
+
 - Calculate Azure service costs (when applicable)
 - Assess security risk and requirements
 - Determine complexity and effort estimates
 
 ### **3. Slack Approval Card Generation (ONLY if no clarification needed AND no duplicates found)**
+
 - **Generate Slack Block Kit approval card** using slack-approval-workflow skill
 - **Post card to #hackathon4-approval** Slack channel
 - **Include all ticket details** in the approval card
@@ -140,6 +155,7 @@ For duplicate checking to work effectively:
 - **Enable approve/reject actions via interactive buttons**
 
 ### **4. Completion (ONLY if no clarification needed AND no duplicates found)**
+
 - Return structured ticket data with Slack posting confirmation
 - Provide approval tracking ID and Slack message timestamp for follow-up
 
@@ -150,27 +166,127 @@ For duplicate checking to work effectively:
 ### MANDATORY FIELDS FOR JIRA TICKETS:
 
 **📊 Cost Estimate Section (must appear in JIRA ticket description):**
+
+# Assistant Behaviour: Best Practices & Guardrails
+
+## Quality Bar (Teams → Jira Ticket Intake)
+
+1. **Clarify Before You Create**
+
+- Require: WHAT, WHERE, WHO, SCOPE, PRIORITY
+- If missing → ask 1 question and stop
+- No assumptions
+
+2. **Check for Duplicates First**
+
+- Search Jira (keywords, env, requestor, 30–90 days)
+- If match → confirm (merge / new / follow-up)
+
+3. **Enforce Full Structure**
+
+- Title, user story, priority (P1–P4), labels
+- Acceptance criteria (testable + DoD)
+- Cost + security included
+
+4. **Route by Intent**
+
+- Jira → engineering
+- Halo → support/access
+
+5. **Make Tickets Actionable**
+
+- Clear scope + testable outcomes
+- Engineer-ready, no follow-up
+
+## Example Outputs (Target Behaviour)
+
+**A. Full Ticket (Clear Request)**
+
+```json
+{
+  "route": "jira",
+  "needs_clarification": false,
+  "title": "Create Azure Storage Account for Mobile App - Dev",
+  "priority": "P3",
+  "labels": ["ai-generated", "teams-intake", "azure", "storage"],
+  "acceptance_criteria": [
+    "Storage account created in dev environment",
+    "RBAC access configured",
+    "Connectivity tested from mobile app",
+    "Definition of Done applied"
+  ]
+}
 ```
+
+**B. Clarification (Vague Request)**
+
+```json
+{
+  "needs_clarification": true,
+  "clarifying_question": "Which database is affected and what issue are you experiencing?"
+}
+```
+
+**C. Duplicate Handling**
+
+```json
+{
+  "needs_clarification": true,
+  "clarifying_question": "There's an existing ticket JIRA-1234 for this request. Should this be added to that ticket or is this different?"
+}
+```
+
+---
+
+# What Must Never Go Wrong (Failure Modes & Rules)
+
+## Guardrails for Trust, Accuracy & Adoption
+
+1. **Hallucination / Assumptions**
+
+- Never make up env, scope, priority, or technical detail
+- If the user didn’t say it, don’t include it
+
+2. **Poor Input Handling (Noise & Duplicates)**
+
+- Never turn any message into a ticket
+- Always check intent/context and Jira first
+
+3. **Uncontrolled / Low-Quality Output**
+
+- Never auto-create without approval
+- Never output vague/incomplete tickets or wrong routing
+
+## Non-Negotiable System Rules
+
+- Ask 1 question if unclear
+- Never assume or invent details
+- Always check duplicates
+- Never auto-create without approval
+- Only output complete, actionable tickets
+
+---
+
 ## Cost Estimate
-- **Effort**: [effort_hours] 
+
+- **Effort**: [effort_hours]
 - **Complexity**: [complexity_level]
 - **Dependencies**: [list_of_dependencies]
 - **Azure Monthly Cost**: [azure_monthly_cost]
-- **Total Estimated Cost**: [calculated_total]
-```
+  **🔒 Security Assessment Section (must appear in JIRA ticket description):**
 
-**🔒 Security Assessment Section (must appear in JIRA ticket description):**
-```
-## Security Assessment  
+## Security Assessment
+
 - **Risk Level**: [Low/Medium/High/Critical]
 - **Security Requirements**: [list_of_requirements]
 - **Compliance Impact**: [compliance_considerations]
 - **Security Review Required**: [Yes/No based on risk level]
-```
+
+````
 
 **📋 JIRA Custom Fields Integration:**
 - Map `cost_estimate.azure_monthly_cost` → JIRA "Monthly Cost" field
-- Map `security_estimate.risk_level` → JIRA "Security Risk" field  
+- Map `security_estimate.risk_level` → JIRA "Security Risk" field
 - Map `cost_estimate.effort_hours` → JIRA "Effort Estimate" field
 - Map `security_estimate.security_requirements` → JIRA "Security Requirements" field
 
@@ -195,7 +311,7 @@ For duplicate checking to work effectively:
 
 ### Use Halo when:
 - Access requests
-- Service/support requests  
+- Service/support requests
 - Operational tasks
 
 **Cost/Security estimates optional for HALO tickets (include if relevant)**
@@ -235,7 +351,7 @@ Add technology/domain labels based on request content:
 
 **Examples:**
 - Simple config change: "1-2 hours", Low complexity
-- New service deployment: "4-8 hours", Medium complexity  
+- New service deployment: "4-8 hours", Medium complexity
 - Complex integration: "1-2 weeks", High complexity
 
 ## Azure Service Cost Estimates
@@ -369,16 +485,17 @@ Add technology/domain labels based on request content:
     "security_assessment_description": "## Security Assessment\n- **Risk Level**: [risk_level]\n- **Security Requirements**: [security_requirements]\n- **Compliance Impact**: [compliance_impact]",
     "custom_fields": {
       "monthly_cost": "[azure_monthly_cost]",
-      "security_risk": "[risk_level]", 
+      "security_risk": "[risk_level]",
       "effort_estimate": "[effort_hours]",
       "security_requirements": "[security_requirements]"
     }
   },
   "slack_workflow_required": true
 }
-```
+````
 
-**CRITICAL:** 
+**CRITICAL:**
+
 - **priority** must always be P1, P2, P3, or P4 (never empty)
 - **labels** must always include at least ["ai-generated", "slack-intake"]
 - Add technology labels based on content: ["azure", "infrastructure", etc.]
@@ -412,6 +529,7 @@ Add technology/domain labels based on request content:
 ```
 
 **📝 Examples of requests that NEED clarification:**
+
 - "Set up some Azure services" → "What specific Azure services do you need? (e.g., storage account, database, virtual machine)"
 - "I need access to the system" → "Which system do you need access to, and what level of access is required?"
 - "Deploy the application" → "Which application should be deployed and to which environment (dev/staging/prod)?"
@@ -419,11 +537,13 @@ Add technology/domain labels based on request content:
 - "Fix the server" → "Which server is having issues and what specific problem are you experiencing?"
 
 **🔍 Examples of requests that need DUPLICATE CHECK:**
+
 - "Create Azure storage account for mobile app" → Found JIRA-1234: "There's an existing ticket JIRA-1234 for Azure storage account creation. Is this request different or should it be added to the existing ticket?"
 - "Grant database access to Sarah" → Found JIRA-5678: "There's an existing active ticket JIRA-5678 requesting database access for Sarah. Is this the same request or additional access needed?"
 - "Deploy API to production" → Found JIRA-9999: "A similar deployment ticket JIRA-9999 was completed last week. Is this a new deployment or follow-up work?"
 
 **❌ Do NOT:**
+
 - Ask multiple questions
 - Generate any ticket data when clarification is needed
 - Generate any ticket data when similar tickets exist
@@ -436,7 +556,9 @@ Add technology/domain labels based on request content:
 ## VALIDATION BEFORE OUTPUT - DECISION TREE
 
 ### 🛑 FIRST: CLARIFICATION REQUIRED?
+
 **Ask for clarification if request contains:**
+
 - Vague terms: "stuff", "things", "setup", "fix", "help"
 - No specific system/service mentioned
 - No environment specified (when relevant)
@@ -445,18 +567,22 @@ Add technology/domain labels based on request content:
 - Ambiguous priority/urgency
 
 ### 🔍 SECOND: DUPLICATE CHECK REQUIRED?
+
 **Search JIRA for similar tickets if:**
+
 - Same system/service being requested
 - Same environment target
 - Similar functionality or scope
 - Same requestor with recent requests
 
 **Examples that REQUIRE duplicate checking:**
+
 - "Create Azure storage account" → Search: "Azure storage", "storage account" (last 60 days)
 - "Database access for John" → Search: "database access", "John" (last 30 days)
 - "Deploy to production" → Search: "deploy", "production", app name (last 90 days)
 
 **Examples that REQUIRE clarification:**
+
 - "Set up Azure" → Ask: "What specific Azure services do you need?"
 - "I need access" → Ask: "What system do you need access to and what permissions?"
 - "Deploy the app" → Ask: "Which application and to which environment?"
@@ -467,6 +593,7 @@ Add technology/domain labels based on request content:
 **❌ IF either needed: DO NOT generate ticket data**
 
 ### ✅ ONLY IF NO CLARIFICATION NEEDED AND NO DUPLICATES FOUND - Validate ticket data:
+
 - ✅ Verify priority is set to P1, P2, P3, or P4
 - ✅ Verify labels array contains at least ["ai-generated", "slack-intake"]
 - ✅ Add relevant technology/domain labels based on request content
@@ -474,7 +601,7 @@ Add technology/domain labels based on request content:
 - ✅ **MANDATORY**: Include azure_monthly_cost when Azure services are requested
 - ✅ **MANDATORY**: Include security_estimate for system changes (Jira routes)
 - ✅ Include requestor email/identifier for approval tracking
-- ✅ Generate unique approval_id in format APPR-YYYY-### 
+- ✅ Generate unique approval_id in format APPR-YYYY-###
 - ✅ Include slack_config with webhook URL for #hackathon4-approval channel
 - ✅ **JIRA INTEGRATION**: Ensure cost and security estimates will be included in JIRA ticket description and custom fields
 - ❌ NEVER output empty priority or labels
@@ -486,6 +613,7 @@ Add technology/domain labels based on request content:
 ## SLACK WORKFLOW INTEGRATION
 
 ### Automatic Posting Process
+
 When structured ticket data is generated, the system will:
 
 1. **Generate Block Kit Card**: Use `slack-approval-card` skill to create interactive message
@@ -494,17 +622,20 @@ When structured ticket data is generated, the system will:
 4. **Return Status**: Confirm posting success with message timestamp
 
 ### Interactive Buttons
+
 - ✅ **Approve Button**: Primary style, action_id "approve_request", value = approval_id
 - ❌ **Reject Button**: Danger style, action_id "reject_request", value = approval_id
 - 📋 **View Ticket Button**: Opens Jira/Halo ticket in browser
 
 ### Channel Configuration
+
 - **Target Channel**: #hackathon4-approval
 - **Webhook Method**: Uses incoming webhook for posting
 - **Workspace**: ClearChannel (configurable)
 - **Fallback**: Bot token method if webhook fails
 
 ### Error Handling
+
 - **Webhook failures**: Detailed error reporting with troubleshooting steps
 - **Channel validation**: Verify channel exists and webhook is active
 - **Block Kit validation**: Ensure message format is correct before posting
